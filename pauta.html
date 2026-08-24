@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pauta de estados — Ropero SG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="contenedor">
+    <a class="marca" href="index.html">
+      <span class="escudo">SG</span>
+      <span><span class="nombre">ROPERO SG</span><br>
+      <span class="bajada">Saint George's College</span></span>
+    </a>
+    <div style="flex:1"></div>
+    <nav class="menu"><a href="index.html">← Volver al catálogo</a></nav>
+  </div>
+</header>
+
+<section class="portada" style="padding:40px 0 28px">
+  <div class="contenedor">
+    <h1>Pauta de estados</h1>
+    <p>Cada prenda que entra al ropero la revisa una apoderada voluntaria y le asigna
+       uno de estos estados. Es el mismo criterio para todas, para que sepas exactamente
+       qué estás comprando.</p>
+  </div>
+</section>
+
+<main class="contenedor" style="max-width:900px;padding-top:30px;padding-bottom:60px">
+  <div id="tarjetasPauta"></div>
+
+  <div class="caja">
+    <h3>¿Y las prendas en mal estado?</h3>
+    <p class="ayuda" style="margin-bottom:0">
+      No se venden. Las prendas rotas o muy deterioradas van a reciclaje textil con CIRKLA,
+      donde se destruyen las insignias y la tela se convierte en ropa de trabajo industrial.
+    </p>
+  </div>
+
+  <div class="aviso info">
+    ¿Recibiste una prenda que no coincide con el estado publicado? Escríbenos:
+    tienes derecho a reembolso dentro del plazo indicado en tu comprobante.
+  </div>
+
+  <a class="btn btn-azul" href="index.html">Volver al catálogo</a>
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <div class="legal" style="grid-column:1/-1">
+      Prototipo escolar sin fines comerciales · Ropero SG
+    </div>
+  </div>
+</footer>
+
+<script src="js/datos.js"></script>
+<script>
+document.getElementById("tarjetasPauta").innerHTML =
+  Object.entries(ESTADOS).map(([clave, e]) => `
+    <div class="caja" id="${clave}">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+        <span class="punto" style="background:${e.color};width:22px;height:22px"></span>
+        <h3 style="font-size:1.35rem">${e.etiqueta}</h3>
+      </div>
+      <p class="ayuda">${e.resumen}</p>
+      <ul style="padding-left:20px;display:flex;flex-direction:column;gap:6px">
+        ${e.criterios.map(c => `<li>${c}</li>`).join("")}
+      </ul>
+    </div>`).join("");
+
+// Resalta el estado si se llega con #excelente, #bueno, etc.
+if (location.hash){
+  const t = document.querySelector(location.hash);
+  if (t){ t.style.outline = "3px solid var(--dorado)"; t.scrollIntoView({block:"center"}); }
+}
+</script>
+</body>
+</html>

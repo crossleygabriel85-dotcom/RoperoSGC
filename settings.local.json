@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n -i \"grafic\\\\|chart\\\\|canvas\\\\|svg\" \"/Users/joho/Downloads/ropero-sg 2/js/\"*.js \"/Users/joho/Downloads/ropero-sg 2/\"*.html 2>/dev/null)",
+      "Read(//Users/joho/Downloads/ropero-sg 2/**)",
+      "Read(//Users/joho/Downloads/**)",
+      "Read(//Users/joho/.Trash/**)",
+      "Bash(mdfind -name \"estilos.css\")"
+    ]
+  }
+}

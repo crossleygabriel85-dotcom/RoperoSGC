@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel del Ropero — Ropero SG</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+<div class="cinta-demo">
+  Panel de demostración · La clave está escrita en el código, no protege datos reales
+</div>
+
+<header class="cabecera">
+  <div class="contenedor">
+    <a class="marca" href="index.html">
+      <span class="escudo">SG</span>
+      <span><span class="nombre">ROPERO SG</span><br>
+      <span class="bajada">Panel de voluntarias</span></span>
+    </a>
+    <div style="flex:1"></div>
+    <nav class="menu">
+      <a href="index.html">Ver el catálogo</a>
+      <button onclick="salir()">Salir</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ==================== INGRESO ==================== -->
+<main id="pantallaIngreso" class="contenedor" style="max-width:460px;padding-top:60px;padding-bottom:80px">
+  <div class="caja">
+    <h3>Acceso de voluntarias</h3>
+    <p class="ayuda">Ingresa la clave del ropero para publicar prendas y revisar pedidos.</p>
+    <div class="campo">
+      <label for="claveIngreso">Clave</label>
+      <input id="claveIngreso" type="password" placeholder="••••••••">
+      <p class="pista" id="errorClave" style="color:var(--error)"></p>
+    </div>
+    <button class="btn btn-azul btn-ancho" onclick="entrar()">Entrar</button>
+    <p class="pista" style="margin-top:14px">
+      Clave del prototipo: <strong>ropero2026</strong> (se cambia en <code>js/datos.js</code>).
+    </p>
+  </div>
+</main>
+
+<!-- ==================== PANEL ==================== -->
+<main id="panel" class="contenedor oculto" style="padding-top:26px;padding-bottom:70px">
+
+  <h1 style="font-size:1.7rem;margin-bottom:4px">Panel del Ropero</h1>
+  <p style="color:var(--tenue);margin-bottom:22px">
+    Todo lo que hagas aquí se ve inmediatamente en el catálogo.
+  </p>
+
+  <div class="pestanas">
+    <button data-p="prendas"    class="activa" onclick="pestana('prendas')">Prendas</button>
+    <button data-p="nueva"                     onclick="pestana('nueva')">Agregar prenda</button>
+    <button data-p="pedidos"                   onclick="pestana('pedidos')">Pedidos</button>
+    <button data-p="reembolsos"                onclick="pestana('reembolsos')">Reembolsos</button>
+    <button data-p="exportar"                  onclick="pestana('exportar')">Resumen y respaldo</button>
+  </div>
+
+  <!-- ---------- PRENDAS ---------- -->
+  <section id="sec-prendas" class="seccion">
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+      <input id="filtroPrendas" placeholder="Buscar por código, nombre, marca o talla…"
+             style="flex:1;min-width:220px;border:1px solid var(--borde);border-radius:10px;padding:11px 13px;font-family:var(--cuerpo)">
+      <button class="btn btn-azul btn-chico" onclick="limpiarFormulario();pestana('nueva')">+ Agregar prenda</button>
+    </div>
+    <p style="color:var(--tenue);font-size:.87rem;margin-bottom:12px" id="totalPrendas"></p>
+    <div class="tabla-marco" id="tablaPrendas"></div>
+  </section>
+
+  <!-- ---------- NUEVA PRENDA ---------- -->
+  <section id="sec-nueva" class="seccion oculto">
+    <div class="columnas">
+      <div class="caja">
+        <h3 id="tituloFormulario">Agregar una prenda</h3>
+        <p class="ayuda">Los campos marcan exactamente lo que ve el apoderado en la ficha.</p>
+
+        <div class="dos">
+          <div class="campo"><label for="fCodigo">Código</label>
+            <input id="fCodigo"><p class="pista">Se genera solo. Pégalo en la etiqueta física.</p></div>
+          <div class="campo"><label for="fNombre">Nombre de la prenda</label>
+            <input id="fNombre" placeholder="Ej: Polar azul con cierre completo"></div>
+        </div>
+
+        <div class="dos">
+          <div class="campo"><label for="fTipo">Tipo de prenda</label><select id="fTipo"></select></div>
+          <div class="campo"><label for="fMarca">Marca</label><select id="fMarca"></select></div>
+        </div>
+
+        <div class="dos">
+          <div class="campo"><label for="fTalla">Talla</label><select id="fTalla"></select></div>
+          <div class="campo"><label for="fEstado">Estado según la pauta</label><select id="fEstado"></select>
+            <p class="pista"><a href="pauta.html" target="_blank">Revisar la pauta de estados</a></p></div>
+        </div>
+
+        <div class="dos">
+          <div class="campo"><label for="fPrecio">Precio en pesos</label>
+            <input id="fPrecio" type="number" min="0" step="500"></div>
+          <div class="campo"><label for="fStock">Cantidad disponible</label>
+            <input id="fStock" type="number" min="0" step="1"><p class="pista">Casi siempre 1: son prendas únicas.</p></div>
+        </div>
+
+        <div class="campo">
+          <label for="fDetalle">Observaciones de la revisión</label>
+          <textarea id="fDetalle" rows="3" placeholder="Ej: pilling leve en el cuello, insignia completa, cierre funcionando."></textarea>
+          <p class="pista">Sé honesta con los defectos: evita reclamos y reembolsos.</p>
+        </div>
+
+        <div class="campo">
+          <label for="fArchivo">Foto de la prenda</label>
+          <input id="fArchivo" type="file" accept="image/*" onchange="previsualizar(this)">
+          <p class="pista">Sobre fondo claro, prenda estirada. Máximo 900 KB.</p>
+        </div>
+
+        <div class="campo">
+          <label for="fImagen">…o pega la ruta de una foto ya subida</label>
+          <input id="fImagen" placeholder="img/polar-12.jpg">
+        </div>
+
+        <div id="vistaPrevia" style="margin-bottom:16px"></div>
+
+        <label class="opcion">
+          <input type="checkbox" id="fPublicado" checked>
+          <span><span class="t">Publicar en el catálogo</span>
+          <span class="d">Desmarca si todavía falta lavarla o fotografiarla.</span></span>
+        </label>
+
+        <div style="display:flex;gap:11px;flex-wrap:wrap;margin-top:16px">
+          <button class="btn btn-azul" id="btnGuardar" onclick="guardarPrenda()">Guardar prenda</button>
+          <button class="btn btn-fantasma" onclick="limpiarFormulario()">Limpiar formulario</button>
+        </div>
+      </div>
+
+      <div class="caja">
+        <h3>Cómo clasificar</h3>
+        <p class="ayuda">Guía rápida para que todas usen el mismo criterio.</p>
+        <ol style="padding-left:20px;display:flex;flex-direction:column;gap:9px;font-size:.9rem">
+          <li>Revisa insignia, botones, cierres y bastas.</li>
+          <li>Mira la prenda a contraluz: busca manchas y desgaste.</li>
+          <li>Asigna el estado según la <a href="pauta.html" target="_blank">pauta</a>, sin excepciones.</li>
+          <li>Toma la foto sobre fondo claro, prenda estirada.</li>
+          <li>Escribe el defecto aunque sea chico.</li>
+          <li>Pon el código impreso en la etiqueta física de la prenda.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- PEDIDOS ---------- -->
+  <section id="sec-pedidos" class="seccion oculto">
+    <p style="color:var(--tenue);font-size:.9rem;margin-bottom:14px">
+      Lista de retiro. Antes de entregar, revisa el número de pedido y quién está autorizado a retirar.
+    </p>
+    <div class="tabla-marco" id="tablaPedidos"></div>
+  </section>
+
+  <!-- ---------- REEMBOLSOS ---------- -->
+  <section id="sec-reembolsos" class="seccion oculto">
+    <p style="color:var(--tenue);font-size:.9rem;margin-bottom:14px">
+      Al aprobar un reembolso, las prendas vuelven automáticamente al catálogo.
+    </p>
+    <div id="listaReembolsos"></div>
+  </section>
+
+  <!-- ---------- EXPORTAR ---------- -->
+  <section id="sec-exportar" class="seccion oculto">
+    <div class="columnas">
+      <div>
+        <div class="caja">
+          <h3>Guardar los cambios de verdad</h3>
+          <p class="ayuda">Importante: lo que agregas en este panel se guarda en el navegador de este
+            computador. Para que lo vea todo el mundo, descarga el archivo y súbelo a GitHub.</p>
+          <ol style="padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:.9rem;margin-bottom:18px">
+            <li>Aprieta "Descargar PRENDAS actualizado".</li>
+            <li>Abre <code>js/datos.js</code> en Visual Studio Code.</li>
+            <li>Reemplaza el bloque <code>const PRENDAS = [ … ];</code> por el del archivo descargado.</li>
+            <li>Guarda y sube el cambio a GitHub.</li>
+          </ol>
+          <div style="display:flex;gap:11px;flex-wrap:wrap">
+            <button class="btn btn-azul" onclick="exportarDatos()">Descargar PRENDAS actualizado</button>
+            <button class="btn btn-linea" onclick="exportarVentas()">Descargar ventas en CSV</button>
+          </div>
+        </div>
+
+        <div class="caja">
+          <h3>Empezar de cero</h3>
+          <p class="ayuda">Borra prendas, pedidos y carrito guardados en este navegador y vuelve
+            a los datos originales de <code>js/datos.js</code>. Útil para demostrar el sitio.</p>
+          <button class="btn btn-peligro" onclick="reiniciarTodo()">Reiniciar el prototipo</button>
+        </div>
+      </div>
+
+      <div class="caja">
+        <h3>Resumen</h3>
+        <p class="ayuda">Cifras de este navegador.</p>
+        <div id="resumenCifras"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="aviso" style="display:none;position:fixed;left:50%;bottom:26px;transform:translateX(-50%);
+  background:#142A57;color:#fff;padding:13px 22px;border-radius:999px;z-index:200;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);font-size:.9rem;max-width:90vw;text-align:center"></div>
+
+<script src="js/datos.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
