@@ -220,5 +220,5 @@ const PRENDAS = [
   id:"SG-0017", tipo:"Short", nombre:"Short de educación física", marca:"First Option",
   talla:"14", estado:"excelente", precio:4000, stock:1, imagen:"",
   detalle:"Cintura elástica ajustable. Sin desgaste.", publicado:true
-},
+  },
 ];
