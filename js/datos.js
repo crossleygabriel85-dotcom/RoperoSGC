@@ -107,7 +107,7 @@ const ESTADOS = {
    ---------------------------------------------------------------- */
 const LISTAS = {
   tipos:  ["Polera", "Buzo", "Polar", "Blazer", "Blusa", "Camisa",
-           "Falda", "Pantalón", "Parka", "Chaleco", "Corbata", "Calcetas"],
+           "Falda", "Pantalón", "Parka", "Chaleco", "Corbata", "Calcetas", "Short"],
 
   marcas: ["First Option", "Uniformes Sport", "Falabella", "Vestuario Escolar",
            "Sin marca", "Otra"],
@@ -215,5 +215,10 @@ const PRENDAS = [
     id:"SG-0016", tipo:"Calcetas", nombre:"Calcetas azules (par nuevo)", marca:"Sin marca",
     talla:"M", estado:"nuevo", precio:2000, stock:5, imagen:"",
     detalle:"Pack de donación, sin uso.", publicado:true
-  }
+  },
+  {
+  id:"SG-0017", tipo:"Short", nombre:"Short de educación física", marca:"First Option",
+  talla:"14", estado:"excelente", precio:4000, stock:1, imagen:"",
+  detalle:"Cintura elástica ajustable. Sin desgaste.", publicado:true
+},
 ];
