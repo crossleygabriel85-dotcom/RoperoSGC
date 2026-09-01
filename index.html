@@ -30,10 +30,7 @@
 <header class="cabecera">
   <div class="contenedor">
     <a class="marca" href="index.html">
-      <!-- Intentamos cargar varias versiones del logo: primero images/logo.png (común), luego Logo colegio bordado.jpeg (nombre que subiste). -->
-      <img class="escudo" src="images/logo.png" alt="Escudo Saint George" 
-           onerror="this.onerror=null;this.src='images/Logo%20colegio%20bordado.jpeg'">
-      <span class="escudo-fallback" style="display:none">SG</span>
+      <span class="escudo">SG</span>
       <span>
         <span class="nombre">ROPERO SG</span><br>
         <span class="bajada">Saint George's College</span>
@@ -96,7 +93,122 @@
   </div>
 </main>
 
-<!-- rest of file unchanged -->
+<!-- ==================== VISTA: CHECKOUT ==================== -->
+<main id="vistaCheckout" class="vista oculto">
+  <div class="contenedor">
+
+    <div class="pasos">
+      <span class="paso listo"><span class="n">1</span> Carrito</span>
+      <span class="paso activo"><span class="n">2</span> Entrega y pago</span>
+      <span class="paso"><span class="n">3</span> Completar pedido</span>
+    </div>
+
+    <div class="columnas">
+      <div>
+
+        <div class="caja">
+          <h3>¿Quién compra?</h3>
+          <p class="ayuda">Usamos estos datos solo para avisarte del retiro.</p>
+          <div class="campo">
+            <label for="compNombre">Nombre del apoderado o apoderada</label>
+            <input id="compNombre" placeholder="Nombre y apellido">
+          </div>
+          <div class="dos">
+            <div class="campo">
+              <label for="compCorreo">Correo electrónico</label>
+              <input id="compCorreo" type="email" placeholder="nombre@correo.cl">
+              <p class="pista">Aquí llega el comprobante y el número de pedido.</p>
+            </div>
+            <div class="campo">
+              <label for="compFono">Teléfono</label>
+              <input id="compFono" type="tel" placeholder="+56 9 ...">
+            </div>
+          </div>
+        </div>
+
+        <div class="caja">
+          <h3>¿Quién retira la prenda?</h3>
+          <p class="ayuda">Retiro presencial en <span class="js-lugar"></span>. <span class="js-horario"></span>.</p>
+
+          <label class="opcion">
+            <input type="radio" name="retira" value="apoderado" checked onchange="cambiarRetiro()">
+            <span><span class="t">Retira el apoderado o apoderada</span>
+            <span class="d">La misma persona que hace la compra.</span></span>
+          </label>
+
+          <label class="opcion">
+            <input type="radio" name="retira" value="estudiante" onchange="cambiarRetiro()">
+            <span><span class="t">Retira el o la estudiante</span>
+            <span class="d">Puede pasar en horario de recreo o a la salida.</span></span>
+          </label>
+
+          <label class="opcion">
+            <input type="radio" name="retira" value="tercero" onchange="cambiarRetiro()">
+            <span><span class="t">Retira otra persona</span>
+            <span class="d">Nana, abuelo, otro apoderado. Debe presentar su carnet.</span></span>
+          </label>
+
+          <div id="datosEstudiante" class="oculto dos" style="margin-top:14px">
+            <div class="campo"><label for="estNombre">Nombre del estudiante</label>
+              <input id="estNombre" placeholder="Nombre y apellido"></div>
+            <div class="campo"><label for="estCurso">Curso</label>
+              <input id="estCurso" placeholder="Ej: 7°B"></div>
+          </div>
+
+          <div id="datosTercero" class="oculto dos" style="margin-top:14px">
+            <div class="campo"><label for="terNombre">Nombre de quien retira</label>
+              <input id="terNombre" placeholder="Nombre y apellido"></div>
+            <div class="campo"><label for="terRut">RUT</label>
+              <input id="terRut" placeholder="12.345.678-9"></div>
+          </div>
+        </div>
+
+        <div class="caja">
+          <h3>¿Cómo quieres pagar?</h3>
+          <p class="ayuda">Todo lo recaudado va a las becas del viaje de estudios.</p>
+          <div id="opcionesPago"></div>
+        </div>
+
+        <div style="display:flex;gap:11px;flex-wrap:wrap;margin-bottom:40px">
+          <button class="btn btn-fantasma" onclick="irACatalogo()">← Seguir comprando</button>
+          <button class="btn btn-dorado" onclick="confirmarPedido()">Confirmar pedido</button>
+        </div>
+      </div>
+
+      <div class="resumen" id="resumenPedido"></div>
+    </div>
+  </div>
+</main>
+
+<!-- ==================== VISTA: CONFIRMACIÓN ==================== -->
+<main id="vistaConfirmacion" class="vista oculto"></main>
+
+<!-- ==================== VISTA: MIS PEDIDOS ==================== -->
+<main id="vistaPedidos" class="vista oculto">
+  <div class="contenedor" style="max-width:820px;padding-top:34px">
+    <h2 style="font-size:1.7rem;margin-bottom:6px">Mis pedidos</h2>
+    <p style="color:var(--tenue);margin-bottom:22px">
+      Busca tu pedido con el número del comprobante y el correo que usaste al comprar.
+      Desde aquí también puedes pedir un reembolso.
+    </p>
+
+    <div class="caja">
+      <div class="dos">
+        <div class="campo"><label for="buscarNumero">Número de pedido</label>
+          <input id="buscarNumero" placeholder="RSG-2026-1001"></div>
+        <div class="campo"><label for="buscarCorreo">Correo de la compra</label>
+          <input id="buscarCorreo" type="email" placeholder="nombre@correo.cl"></div>
+      </div>
+      <button class="btn btn-azul" onclick="buscarPedido()">Buscar pedido</button>
+    </div>
+
+    <div id="resultadoPedidos"></div>
+
+    <p style="padding-bottom:60px">
+      <button class="btn btn-fantasma" onclick="irACatalogo()">← Volver al catálogo</button>
+    </p>
+  </div>
+</main>
 
 <footer class="pie">
   <div class="contenedor">
