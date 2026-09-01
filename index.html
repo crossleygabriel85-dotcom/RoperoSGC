@@ -30,7 +30,9 @@
 <header class="cabecera">
   <div class="contenedor">
     <a class="marca" href="index.html">
-      <span class="escudo">SG</span>
+      <!-- Intentamos cargar images/logo.png. Si falla (imagen no subida), mostramos el fallback con "SG" -->
+      <img class="escudo" src="images/logo.png" alt="Escudo Saint George" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block'">
+      <span class="escudo-fallback" style="display:none">SG</span>
       <span>
         <span class="nombre">ROPERO SG</span><br>
         <span class="bajada">Saint George's College</span>
