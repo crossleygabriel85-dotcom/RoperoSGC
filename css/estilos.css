@@ -351,7 +351,7 @@ nav.menu a:hover, nav.menu button:hover{ background:rgba(255,255,255,.14); }
 .exito{ text-align:center; padding:46px 26px; }
 .exito .tic{ width:74px; height:74px; border-radius:50%; background:var(--ok); color:#fff; display:grid; place-items:center; font-size:2.2rem; margin:0 auto 18px; }
 .exito h2{ font-size:1.7rem; margin-bottom:8px; }
-.exito .numero{ font-family:var(--display); font-weight:800; font-size:1.5rem; color:var(--azul); background:var(--azul-tenue); border-radius:var(--radio); padding:12px 24px; display:inline-block[...]
+.exito .numero{ font-family:var(--display); font-weight:800; font-size:1.5rem; color:var(--azul); background:var(--azul-tenue); border-radius:var(--radio); padding:12px 24px; display:inline-block; margin:16px 0; letter-spacing:.05em; }
 
 /* ============================ TABLAS (admin / pedidos) ============================ */
 
@@ -417,3 +417,4 @@ footer.pie .legal{ border-top:1px solid rgba(255,255,255,.14); margin-top:24px; 
   *{ animation:none !important; transition:none !important; }
   html{ scroll-behavior:auto; }
 }
+
