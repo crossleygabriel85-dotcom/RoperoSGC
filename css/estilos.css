@@ -417,29 +417,3 @@ footer.pie .legal{ border-top:1px solid rgba(255,255,255,.14); margin-top:24px; 
   *{ animation:none !important; transition:none !important; }
   html{ scroll-behavior:auto; }
 }
-
-/* ============================ AJUSTES PARA EL LOGO (mejor visual) ============================ */
-
-/* Este bloque mejora la visualización del escudo cuando la imagen tiene fondo blanco
-   - recorta visualmente (object-fit:cover) para que el emblema ocupe el recuadro
-   - centra y define tamaño fijo para consistencia en la barra superior */
-
-.marca img.escudo {
-  width: 36px;
-  height: 36px;
-  object-fit: cover;      /* recorta la imagen para llenar el cuadro */
-  border-radius: 8px;
-  background: transparent;
-  display: inline-block;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.12) inset;
-}
-
-/* Si la imagen tiene mucho borde blanco y quieres un recorte más agresivo,
-   puedes aumentar el tamaño del contenedor y usar transform para escalar: */
-
-.marca img.escudo--scaled {
-  width: 44px;
-  height: 44px;
-  transform: scale(1.05);
-  object-fit: cover;
-}
